@@ -2,6 +2,7 @@ buildscript {
     ext {
         kotlinVersion = '1.2.71'
         springBootVersion = '2.1.1.RELEASE'
+        graphQLVersion = '5.3.1'
     }
     repositories {
         mavenCentral()
@@ -37,12 +38,21 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter')
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+
+    // GraphQL
+    implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:$graphQLVersion"
+    implementation "com.graphql-java-kickstart:graphiql-spring-boot-starter:$graphQLVersion"
+    implementation "com.graphql-java-kickstart:voyager-spring-boot-starter:$graphQLVersion"
+
+    // testing facilities
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "com.graphql-java-kickstart:graphql-spring-boot-starter-test:$graphQLVersion"
 }
