@@ -1,4 +1,4 @@
-package biz.tsukuenoshita.graphqldemo
+package biz.tsukuenoshita.graphqldemo.graphql
 
 import biz.tsukuenoshita.graphqldemo.model.User
 import com.coxautodev.graphql.tools.GraphQLQueryResolver
