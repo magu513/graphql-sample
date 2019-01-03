@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-http="http://www.springframework.org/schema/integration/http"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/integration
+           http://www.springframework.org/schema/integration/spring-integration.xsd
+           http://www.springframework.org/schema/integration/http
+           http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+    <int:channel id="inbound"/>
+    <int:channel id="outbound"/>
+
+    <int:gateway id="userApiGateway"
+                 service-interface="biz.tsukuenoshita.graphqldemo.integration.gateway.UserApiGateway"
+                 default-request-channel="inbound"
+                 default-reply-channel="outbound">
+        <int:method name="get"/>
+    </int:gateway>
+
+    <int:chain input-channel="inbound" output-channel="outbound">
+        <int-http:outbound-gateway
+                http-method="GET"
+                url="http://localhost:8080/user"
+                expected-response-type="biz.tsukuenoshita.graphqldemo.model.User"/>
+    </int:chain>
+</beans>
