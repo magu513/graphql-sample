@@ -1,0 +1,64 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.3.11'
+        kotlinCoroutine = '1.1.0'
+        springBootVersion = '2.1.1.RELEASE'
+        graphQLVersion = '5.3.1'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'biz.tsukuenoshita'
+version = '1.0.0'
+sourceCompatibility = 1.8
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-integration'
+    implementation 'org.springframework.integration:spring-integration-http'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutine"
+
+    // GraphQL
+    implementation "com.graphql-java-kickstart:graphql-spring-boot-starter:$graphQLVersion"
+    implementation "com.graphql-java-kickstart:graphiql-spring-boot-starter:$graphQLVersion"
+    implementation "com.graphql-java-kickstart:voyager-spring-boot-starter:$graphQLVersion"
+
+    // testing facilities
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "com.graphql-java-kickstart:graphql-spring-boot-starter-test:$graphQLVersion"
+}
